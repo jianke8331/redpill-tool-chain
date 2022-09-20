@@ -25,7 +25,9 @@ jobs:
         include:
           #  两行一组，删除不需要的版本
 
-          - platform: ds918p
+          - platform: ds920p
+            version: 7.0.1-42218
+          - platform: ds920p
             version: 7.1.0-42661
 
     steps:
@@ -73,7 +75,7 @@ jobs:
           cat ${{matrix.platform}}_user_config.json
 
       - name: 添加扩展驱动
-        if: matrix.platform != 'dva3221'
+        if: matrix.platform != 'ds920p'
         run: |
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-boot-wait.json
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-acpid.json
@@ -85,7 +87,7 @@ jobs:
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/vmw_pvscsi/rpext-index.json
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/bnx2x/rpext-index.json
       - name: 添加扩展驱动[dva3221]
-        if: matrix.platform == 'dva3221'
+        if: matrix.platform == 'ds920p'
         run: |
           echo '等待整理兼容性扩展~😀'
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-boot-wait.json
